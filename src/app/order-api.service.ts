@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class OrderAPIService {
   
+  
   constructor(private http:HttpClient,private router:Router) { }
   public getProducts(){
     return this.http.get("https://localhost:44373/Orders");
@@ -31,8 +32,35 @@ export class OrderAPIService {
   }
 
   
-  public addAddress(product: Address){
-    return this.http.post("https://localhost:44373/Orders",product,{responseType:'text' as 'json'});
+  public addAddress(add: Address,uid:number){
+    add.userId=uid;
+    return this.http.post("https://localhost:44373/Orders",add,{responseType:'text' as 'json'});
    }
+
+   public getAddByID(id:number)
+ {
+  return this.http.get("https://localhost:44373/Orders/GetUserAdd?uid="+id);
+  
+ }
+
+
+ public getOItemsByID(id:number)
+ {
+  return this.http.get("https://localhost:44373/Orders/GetOrderItems?oid="+id);
+  
+ }
+
+
+ public getOrdersByID(id:number)
+ {
+  return this.http.get("https://localhost:44373/Orders/GetById?id="+id);
+  
+ }
+
+
+ goToBill(){
+  console.log("Bill");
+  this.router.navigate(['/','bill']);
+}
  
 }

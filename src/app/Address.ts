@@ -7,6 +7,7 @@
         country :  string ,
         mobile :  string ,
         mailId :  string ,
+        userId:number,
         contactPerson :  string 
      )
     {
@@ -17,6 +18,7 @@
         this.country=country;
         this.mobile=mobile;
         this.mailId=mailId;
+        this.userId=userId;
         this.contactPerson=contactPerson;
     }
     addressLine1: string 
@@ -26,6 +28,7 @@
     country :  string ;
     mobile :  string ;
     mailId :  string ;
+    userId:number;
     contactPerson :  string ;
  
 }

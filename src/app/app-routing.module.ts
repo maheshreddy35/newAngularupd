@@ -9,13 +9,14 @@ import { UserAddressComponent } from './user-address/user-address.component';
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'/address',pathMatch:'full'},
+  {path:'',redirectTo:'/bill',pathMatch:'full'},
  // {path:'home',component:HomeComponent},
   {path:'cart',component:CartComponent},
   {path:'bill',component:BillComponent},
   {path:'orders',component:OrdersComponent},
   {path:'address',component:UserAddressComponent},
   {path:'delete',component:DeleteComponent},
+  {path:'bill',component:BillComponent}
   // { path: 'reload',
     // redirectTo: 'orders',
     // pathMatch: 'full'
