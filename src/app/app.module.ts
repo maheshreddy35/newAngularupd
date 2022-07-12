@@ -1,44 +1,44 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProductComponent } from './product/product.component';
-import { OrdersComponent } from './orders/orders.component';
-//import { AddressComponent } from './address/address.component';
-import { BillComponent } from './bill/bill.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {HttpClientModule} from '@angular/common/http'
+import { CoreModule } from './core/core.module';
+import { ShopModule } from './shop/shop.module';
 import { CartComponent } from './cart/cart.component';
-import { FormsModule } from '@angular/forms';
-import { UserAddressComponent } from './user-address/user-address.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { BillComponent } from './bill/bill.component';
 import { DeleteComponent } from './delete/delete.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ProductComponent } from './product/product.component';
+import { UserAddressComponent } from './user-address/user-address.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import {ReactiveFormsModule } from '@angular/forms';
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
     CartComponent,
+    HomeComponent,
     BillComponent,
     OrdersComponent,
     UserAddressComponent,
-    DeleteComponent
-         
+    DeleteComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
+    CoreModule,
+    ShopModule,
     ReactiveFormsModule,
-    Ng2SearchPipeModule
-    
-
+    Ng2SearchPipeModule,
+    FormsModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Address } from '../Address';
 import { OrderAPIService } from '../order-api.service';
-import{FormGroup,FormControl,Validators} from '@angular/forms'
+import { OrderServiceService } from '../order-service.service';
+
 @Component({
   selector: 'app-user-address',
   templateUrl: './user-address.component.html',
-  styleUrls: ['./user-address.component.css']
+  styleUrls: ['./user-address.component.css'],
+  
 })
 export class UserAddressComponent implements OnInit {
 
@@ -20,23 +20,54 @@ export class UserAddressComponent implements OnInit {
         country :  "" ,
         mobile :  "" ,
         mailId :  "" ,
-        contactPerson :  ""
+        contactPerson :  "",
+        userId:0
       };
-  message: Object | undefined;
-  
-  constructor(private ser:OrderAPIService,private router:Router) { }
-  public goToOrders(){
+      public response:string="";
+  addresslist:any;
+  list:boolean=false;
+  flag:boolean=false;
+  constructor(private ser:OrderAPIService) {}
+   
+  private service!: OrderServiceService;
+  message: string="";
+  userId:number=1000;
 
-    console.log("OKKK");
-    let resp=this.ser.addAddress(this.myaddress);
-    resp.subscribe((data)=>this.message=data);
-    this.router.navigate(['/','orders']);
+  getaddress(){
+    let resp=this.ser.getaddress(this.userId);
+      resp.subscribe(data=>{
+        this.addresslist=data
+        console.log(this.addresslist)
+      }
+      );
+      this.list=true;
+      
+   }
+
+  public goToOrders(){
+    let resp=this.ser.addAddress(this.myaddress,this.userId);
+    resp.subscribe(data=>{
+    this.message=data.toString();
+    console.log(this.message)
+  //this.ser.message=this.message;
+   
+      });
+    
+  this.ser.goToBill();
+   
   }
- 
+ gotoform(){
+  this.flag=true;
+  this.list=false;
+ }
 
   ngOnInit(): void {
-    
-  
+    this.getaddress();
   }
 
+confirmaddress(loc:any){
+  this.myaddress=loc;
+  console.log(loc);
+
+}
 }

@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { OrderServiceService } from './order-service.service';
-import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Amazon';
-  constructor(private ser:OrderServiceService){}
-  goTocart(){
-    this.ser.goTocart();
+export class AppComponent implements OnInit {
+
+  constructor(private http:HttpClient){}
+  ngOnInit(): void {
+  //  this.http.get("https://localhost:44331/api/Products").subscribe((response:any)=>{
+  //  this.products=response
+  //  console.log(response)}
+  //  );
   }
-  goToOrders(){
-    this.ser.goToOrders();
-  }
+  title = 'client';
 }

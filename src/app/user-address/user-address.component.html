@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-lg-4">
       <div>
-        <div style="margin-top: 150px; margin-left: 10px;" class="text-center">
+        <div style="margin-top: 100px; margin-left: 10px;" class="text-center">
           <img src="https://i.pinimg.com/originals/6c/9e/19/6c9e197129299c5af04d8ad1173ad9b9.gif" width="150px" style="border-radius:15px">
           <h3 class="text-white">Welcome</h3>
           <p class="white-text">You are 30 seconds away from compleating your order!</p>
@@ -13,7 +13,59 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8" style="margin-top: 80px;" *ngIf="list">
+      <cdk-virtual-scroll-viewport [itemSize]="141" style="height: 282px">
+        <div *cdkVirtualFor="let loc of addresslist;let i = index">
+          
+          <div  class="card">
+            {{i+1}}.
+            <div  class="container">
+              <table cellPadding="5px">
+                <tr>
+                  <td>Name</td>
+                  <td>{{loc.contactPerson}}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>{{loc.addressLine1}}</td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td>{{loc.city}}</td>
+                </tr>
+                <tr>
+                  <td>postalCode</td>
+                  <td>{{loc.postalCode}}</td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>{{loc.country}}</td>
+                </tr>
+                <tr>
+                  <td>MailId</td>
+                  <td>{{loc.mailId}}</td>
+                </tr>
+                <tr>
+                  <td>Mobile</td>
+                  <td>{{loc.mobile}}</td>
+                </tr>
+              
+            </table>
+              <hr>
+              <button style="margin-right: 100px;margin-left: 30px;border-radius: 5px;background-color:lightcoral;">Edit Address</button>
+              <button style="border-radius: 5px;background-color:forestgreen" (click)="confirmaddress(loc)">confirm Address</button>
+                <hr>
+            </div>
+        </div>
+        
+        </div>
+        </cdk-virtual-scroll-viewport>
+        <button style="margin-top: 40px;margin-left: 300px;border: none;background-color: aliceblue;border-radius:5px ;" (click)="gotoform()" >
+          Add New Address</button>
+    </div>
+    
+    
+    <div class="col-lg-8" *ngIf="flag">
       <div style="background-color:aliceblue;border-radius: 55px 1px 55px;">
         <form #addressform="ngForm" class="mb-0" style="margin :25px">
             <fieldset>
@@ -42,9 +94,9 @@
                     <br>
 
                     <label class="form-label" for="form9Example4">Zip</label>
-                    <input type="text" [(ngModel)]="myaddress.postalCode" [ngModelOptions]="{standalone:true}" #Zip="ngModel" name="postalCode" id="postalCode" class="form-control input-custom" minlength="6" maxlength="6" required/>
+                    <input type="number" [(ngModel)]="myaddress.postalCode" [ngModelOptions]="{standalone:true}" #Zip="ngModel" name="postalCode" id="postalCode" class="form-control input-custom" min="100000" max="999999" required/>
                     <span *ngIf="Zip.touched && Zip.invalid" class="text-danger">
-                      Inavalid Postal Code is required
+                       Invalid Postal Code is required
                     </span>
                     <br>
                     
@@ -56,9 +108,9 @@
                     <br>
                     
                     <label class="form-label" for="mobile">Phone</label>
-                    <input type="text" [(ngModel)]="myaddress.mobile" [ngModelOptions]="{standalone:true}" #phno="ngModel" name="mobile" id="mobile" class="form-control input-custom" minlength="10" required/>
+                    <input type="number" [(ngModel)]="myaddress.mobile" [ngModelOptions]="{standalone:true}" #phno="ngModel" name="mobile" id="mobile" class="form-control input-custom" min="6000000000" max="9999999999" required/>
                     <span *ngIf="phno.touched && phno.invalid" class="text-danger">
-                      Mobile number is required
+                      Mobile number must be 10 digits
                     </span>
                     <br>
 
@@ -72,21 +124,22 @@
 
                     <label class="form-label" for="mailId">Email</label>
                  
-                    <input type="email" [(ngModel)]="myaddress.mailId" [ngModelOptions]="{standalone:true}" #mail="ngModel" name="mailId"id="mailId" class="form-control input-custom" required/>
+                    <input type="email" [(ngModel)]="myaddress.mailId" [ngModelOptions]="{standalone:true}" #mail="ngModel" name="mailId"id="mailId" class="form-control input-custom"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required/>
                    <span *ngIf="mail.touched && mail.invalid" class="text-danger">
-                      Mail Id is required
+                      Please enter valid mail id
                     </span>
                     <br>
 
               <h3>Payment Mode</h3>
+              
               <h4>
-               
+               COD
               </h4>
                 <hr>
               <div class="float-end ">
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-rounded" [disabled]="address.invalid" [disabled]="address2.invalid" [disabled]="phno.invalid"
-                [disabled]="mail.invalid"
+                <button type="submit" class="btn btn-primary btn-rounded" [disabled]="address.invalid || mail.invalid ||City.invalid ||country.invalid ||Zip.invalid || phno.invalid || name.invalid "
+                
         
                   style="background-color:#0062CC;" (click)="goToOrders()">Confirm</button>
               </div>
@@ -95,7 +148,8 @@
         
             </form>
       </div>
+      </div>
     </div>
   </div>
   </div>
-</div>
+
